@@ -1,6 +1,10 @@
 package uoc.ded.practica;
 
-import uoc.ded.practica.exceptions.GameAlreadyExistsException;
+import uoc.ded.practica.exceptions.*;
+import uoc.ded.practica.models.Game;
+import uoc.ded.practica.models.Move;
+import uoc.ded.practica.models.User;
+import uoc.ei.tads.Iterador;
 
 /**
  * Definición del TAD de gestión de la plataforma de juegos para tablets y móviles
