@@ -1,4 +1,4 @@
 package uoc.ded.practica.exceptions;
 
-public class LevelAlreadyExistsException extends Exception {
+public class LevelAlreadyExistsException extends DEDException {
 }

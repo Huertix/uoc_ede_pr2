@@ -1,4 +1,4 @@
 package uoc.ded.practica.exceptions;
 
-public class LevelFullException extends Exception {
+public class LevelFullException extends DEDException {
 }

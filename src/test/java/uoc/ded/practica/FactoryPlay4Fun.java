@@ -25,19 +25,19 @@ public class FactoryPlay4Fun {
         ////
         //// GAMES
         ////
-        play4Fun.addGame("idGame1", "Description 1");
-        play4Fun.addGame("idGame2", "Description 2");
-        play4Fun.addGame("idGame3", "Description 3");
-        play4Fun.addGame("idGame4", "Description 4");
         play4Fun.addGame("idGame5", "Description 5");
+        play4Fun.addGame("idGame1", "Description 1");
+        play4Fun.addGame("idGame4", "Description 4");
+        play4Fun.addGame("idGame2", "Description 2");
         play4Fun.addGame("idGame6", "Description 6");
+        play4Fun.addGame("idGame3", "Description 3");
 
 
         ////
         //// LEVELS
         ////
         play4Fun.addLevel("idLevel1","idGame1", "LEVEL1", 10, 6 );
-        play4Fun.addLevel("idLevel2","idGame1", "LEVEL1", 5, 2 );
+        play4Fun.addLevel("idLevel2","idGame1", "LEVEL2", 5, 2 );
 
 
         ////

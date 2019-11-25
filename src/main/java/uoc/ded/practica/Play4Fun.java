@@ -56,7 +56,7 @@ public interface Play4Fun {
      * devolverá un error.
      */
     public void addGame(String idGame, String description)
-            throws GameAlreadyExistsException;
+            throws DEDException;
 
 
     /**
@@ -200,7 +200,7 @@ public interface Play4Fun {
      * @param idUser identificador del usuario
      * @return retorna l'usuari identificcat per idUser o null en caso que no exista
      */
-    public User getUser(String idUser);
+    public User getUser(String idUser) ;
 }
 
 

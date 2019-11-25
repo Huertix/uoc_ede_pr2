@@ -6,7 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uoc.ded.practica.Play4Fun;
-
+import uoc.ded.practica.exceptions.*;
+import uoc.ded.practica.models.Game;
+import uoc.ded.practica.models.Move;
+import uoc.ei.tads.Iterador;
 
 public class Play4FunEP2Test {
 
@@ -14,7 +17,7 @@ public class Play4FunEP2Test {
 
     @Before
     public void setUp() throws Exception {
-        this.play4Fun = uoc.ded.practica.FactoryPlay4Fun.getMyLimon();
+        this.play4Fun = FactoryPlay4Fun.getMyLimon();
     }
 
     @After
@@ -240,10 +243,10 @@ public class Play4FunEP2Test {
 
         Iterador<Game> itGames = this.play4Fun.topGames();
 
-        Game game1 = itGames.seguent();
+        Game game1 = itGames.siguiente();
         Assert.assertEquals("idGame1", game1.getIdGame());
 
-        Game game2 = itGames.seguent();
+        Game game2 = itGames.siguiente();
         Assert.assertEquals("idGame2", game2.getIdGame());
 
         this.play4Fun.playGame("idUser4", "idGame3");
@@ -253,13 +256,13 @@ public class Play4FunEP2Test {
 
         itGames = this.play4Fun.topGames();
 
-        Game game3 = itGames.seguent();
+        Game game3 = itGames.siguiente();
         Assert.assertEquals("idGame3", game3.getIdGame());
 
-        game1 = itGames.seguent();
+        game1 = itGames.siguiente();
         Assert.assertEquals("idGame1", game1.getIdGame());
 
-        game2 = itGames.seguent();
+        game2 = itGames.siguiente();
         Assert.assertEquals("idGame2", game2.getIdGame());
 
     }
@@ -283,7 +286,7 @@ public class Play4FunEP2Test {
         this.play4Fun.nextScreen("idUser1", "idGame1", "idLevel1", 0, 25);
 
         Iterador<Move> it = this.play4Fun.topUsersForScreen("idGame1", "idLevel1", 0);
-        mUser1 = it.seguent();
+        mUser1 = it.siguiente();
         Assert.assertEquals("nextScreen", "idUser1", mUser1.getUser().getId());
         this.play4Fun.nextScreen("idUser3", "idGame1", "idLevel1", 0, 28);
 
@@ -291,20 +294,18 @@ public class Play4FunEP2Test {
 
         it = this.play4Fun.topUsersForScreen("idGame1", "idLevel1", 0);
 
-        mUser2 = it.seguent();
+        mUser2 = it.siguiente();
         Assert.assertEquals("nextScreen", "idUser2", mUser2.getUser().getId());
         Assert.assertEquals("nextScreen", 35, mUser2.getPoints());
 
-        mUser3 = it.seguent();
+        mUser3 = it.siguiente();
         Assert.assertEquals("nextScreen", "idUser3", mUser3.getUser().getId());
         Assert.assertEquals("nextScreen", 28, mUser3.getPoints());
 
-        mUser1 = it.seguent();
+        mUser1 = it.siguiente();
         Assert.assertEquals("nextScreen", "idUser1", mUser1.getUser().getId());
         Assert.assertEquals("nextScreen", 25, mUser1.getPoints());
     }
-
-
 
     /**
      *
@@ -318,7 +319,5 @@ public class Play4FunEP2Test {
     public void testNextScreenEnoughtPoints() throws DEDException {
         this.play4Fun.nextScreen("idUser1", "idGame1", "idLevel1", 0, 5);
     }
-
-
 
 }
