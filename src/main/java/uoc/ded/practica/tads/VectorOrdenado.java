@@ -4,7 +4,8 @@ import uoc.ei.tads.ContenedorAcotado;
 import uoc.ei.tads.Iterador;
 import uoc.ei.tads.IteradorVectorImpl;
 
-public abstract class VectorOrdenado<E> implements ContenedorAcotado<E> {
+// TODO: indicar que no es necesario implementar diccionario
+public abstract class VectorOrdenado<E> implements ContenedorAcotado<E>{
 
     protected E[] elementos;
     protected int maxElementos;

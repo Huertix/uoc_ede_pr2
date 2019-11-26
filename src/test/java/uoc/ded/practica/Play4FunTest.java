@@ -10,6 +10,4 @@ import org.junit.runners.Suite;
 
 public class Play4FunTest {
 
-
-
 }

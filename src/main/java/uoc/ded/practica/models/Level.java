@@ -1,6 +1,7 @@
 package uoc.ded.practica.models;
 
 import uoc.ded.practica.exceptions.LevelFullException;
+import uoc.ded.practica.exceptions.ScreenNotFoundException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,6 +13,7 @@ public class Level {
     private int hardness;
     private int nScreens;
     private int totalScreens;
+    /* vector */
     private Screen[] screens;
 
     public Level(String id, String name, int hardness, int nScreens) {
@@ -70,12 +72,12 @@ public class Level {
         return screens;
     }
 
-    public Screen getScreen(int levelScreenId) {
+    public Screen getScreen(int levelScreenId) throws ScreenNotFoundException {
         Screen screen = null;
         try {
             screen = screens[levelScreenId];
         } catch (Exception e){
-            e.printStackTrace();
+            throw new ScreenNotFoundException();
         }
 
         return screen;

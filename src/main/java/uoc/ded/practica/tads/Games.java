@@ -10,6 +10,7 @@ import uoc.ei.tads.Iterador;
 
 import java.util.Comparator;
 
+/* vector ordenado​ por nombre*/
 public class Games extends VectorOrdenado<Game> {
 
     public Games(int max) {
@@ -31,7 +32,6 @@ public class Games extends VectorOrdenado<Game> {
         }
 
         int index;
-
         for (index = this.nElementos - 1; index >= 0; index--) {
             Game currentGame = this.elementos[index];
 
@@ -48,10 +48,7 @@ public class Games extends VectorOrdenado<Game> {
 
     }
 
-    public Iterador<Game> getTopPlayedGames() {
-        return null;
-    }
-
+    //TODO: búsqueda dicotómica
     public Game getGame(String idGame) throws GameNotFoundException {
         if (this.estaVacio()) {
             throw new GameNotFoundException();

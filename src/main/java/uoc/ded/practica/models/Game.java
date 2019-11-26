@@ -14,7 +14,7 @@ public class Game {
     private String id;
     private String description;
     private int totalPlayed;
-    /* lista encadenada */
+    /* lista encadenada normal*/
     private Lista<Level> levels;
     private int totalLevels;
 
