@@ -14,7 +14,6 @@ public class Game {
     private String id;
     private String description;
     private int totalPlayed;
-    /* lista encadenada normal*/
     private Lista<Level> levels;
     private int totalLevels;
 
@@ -27,10 +26,6 @@ public class Game {
 
     public String getIdGame() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -49,10 +44,16 @@ public class Game {
         this.totalPlayed += 1;
     }
 
-    public Contenedor<Level> getLevels() {
-        return levels;
+    public Iterador<Level> getLevels() {
+        return this.levels.elementos();
     }
 
+    /**
+     *  Function to search a level based in the level ID
+     * @param String levelId
+     * @return Level
+     * @throws LevelNotFoundException
+     */
     public Level getLevel(String levelId) throws LevelNotFoundException {
         final Iterador<Level> levels = this.levels.elementos();
         while (levels.haySiguiente()) {
@@ -64,9 +65,14 @@ public class Game {
         throw new LevelNotFoundException();
     }
 
+    /**
+     * Add new Level to Game. If level exists, it throws an error
+     * @param level
+     * @throws LevelAlreadyExistsException
+     */
     public void addLevel(Level level) throws LevelAlreadyExistsException {
         try {
-            Level requestedLevel = this.getLevel(level.getId());
+            this.getLevel(level.getId());
             throw new LevelAlreadyExistsException();
         } catch (LevelNotFoundException e) {
             this.levels.insertarAlFinal(level);

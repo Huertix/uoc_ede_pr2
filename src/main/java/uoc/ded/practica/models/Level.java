@@ -13,7 +13,6 @@ public class Level {
     private int hardness;
     private int nScreens;
     private int totalScreens;
-    /* vector */
     private Screen[] screens;
 
     public Level(String id, String name, int hardness, int nScreens) {
@@ -26,10 +25,6 @@ public class Level {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -72,27 +67,37 @@ public class Level {
         return screens;
     }
 
+    /**
+     *  Get the screen from level based on levelId
+     * @param String levelScreenId
+     * @return Screen
+     * @throws ScreenNotFoundException
+     */
     public Screen getScreen(int levelScreenId) throws ScreenNotFoundException {
-        Screen screen = null;
         try {
-            screen = screens[levelScreenId];
+            return screens[levelScreenId];
         } catch (Exception e){
+            // Potentially could throw and index of range exception
             throw new ScreenNotFoundException();
         }
 
-        return screen;
     }
 
-
+    /**
+     * Insert screen using the screenID directly in the array index position
+     * @param Screen screen to store or update.
+     * @throws LevelFullException
+     */
     public void insertScreen(Screen screen) throws LevelFullException {
         if (screen.getId() >= screens.length)
             throw new LevelFullException();
-
         try {
+            // We update the screen. We can update just the points, but we update the full object instead
             screens[screen.getId()] = screen;
             this.increaseTotalScreens();
         } catch (Exception e) {
-
+            // Potentially could throw and index of range exception
+            e.printStackTrace();
         }
     }
 

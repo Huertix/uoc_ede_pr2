@@ -5,24 +5,25 @@ import uoc.ded.practica.exceptions.GameAlreadyExistsException;
 import uoc.ded.practica.exceptions.GameNotFoundException;
 import uoc.ded.practica.models.Game;
 import uoc.ei.tads.ExcepcionContenedorLleno;
-import uoc.ei.tads.ExcepcionTADs;
-import uoc.ei.tads.Iterador;
 
-import java.util.Comparator;
-
-/* vector ordenado​ por nombre*/
 public class Games extends VectorOrdenado<Game> {
 
     public Games(int max) {
+        super();
         this.maxElementos = max;
         this.elementos = (Game[]) new Game[max];
         this.nElementos = 0;
         this.primero = 0;
     }
 
+    /**
+     * Function to store a game in alphabetical order
+     * @param newGame Game game to insert
+     * @throws DEDException
+     */
     public void insertSorted(Game newGame) throws DEDException {
 
-        if(this.estaLleno())
+        if (this.estaLleno())
             throw new ExcepcionContenedorLleno();
 
         if (this.estaVacio()) {
@@ -35,33 +36,62 @@ public class Games extends VectorOrdenado<Game> {
         for (index = this.nElementos - 1; index >= 0; index--) {
             Game currentGame = this.elementos[index];
 
+            // Check if game exists already
             if (currentGame.getIdGame().equalsIgnoreCase(newGame.getIdGame()))
                 throw new GameAlreadyExistsException();
 
             this.elementos[index + 1] = currentGame;
             if (currentGame.getIdGame().compareToIgnoreCase(newGame.getIdGame()) < 0) {
-                break;
+                break; // if idGame from array is smaller than newIdGame, exit the loop
             }
         }
-        this.elementos[index + 1] = newGame;
+        this.elementos[index + 1] = newGame; // add new game in the last index + 1 position calculated from loop
         this.nElementos += 1;
-
     }
 
-    //TODO: búsqueda dicotómica
+    /**
+     * Public function for getting a requested game
+     *
+     * @param idGame game to search
+     * @return Game game to search
+     * @throws GameNotFoundException
+     */
     public Game getGame(String idGame) throws GameNotFoundException {
         if (this.estaVacio()) {
             throw new GameNotFoundException();
         }
 
-        final Iterador games = this.elementos();
+        return this.binarySearch(this.elementos, this.nElementos, idGame);
+    }
 
-        while (games.haySiguiente()) {
-            Game currentGame = (Game) games.siguiente();
-            if (currentGame.getIdGame().equals(idGame))
-                return currentGame;
+    /**
+     * Helper recursive function to search a game using binary Search strategy
+     *
+     * @param games    array
+     * @param nElement number of elements in the array
+     * @param idGame   game to search
+     * @return Game game to search
+     * @throws GameNotFoundException
+     */
+    private Game binarySearch(Game[] games, int nElement, String idGame) throws GameNotFoundException {
+        int middle = (int) Math.floor(nElement / 2);
+        Game gameFromArray = games[middle];
+
+        if (gameFromArray.getIdGame().equals(idGame))
+            return gameFromArray;
+
+        if (middle < 1)
+            throw new GameNotFoundException();
+
+        Game[] part = new Game[middle];
+        if (gameFromArray.getIdGame().compareToIgnoreCase(idGame) > 0) {
+            // primera mitad
+            System.arraycopy(games, 0, part, 0, middle);
+        } else {
+            // segunda mitad
+            System.arraycopy(games, middle + 1, part, 0, middle);
         }
 
-        throw new GameNotFoundException();
+        return this.binarySearch(part, middle, idGame);
     }
 }
