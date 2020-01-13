@@ -1,4 +1,4 @@
-package uoc.ded.practica.models;
+package uoc.ded.practica.model;
 
 import uoc.ded.practica.Play4Fun;
 import uoc.ded.practica.tads.TopPlayers;

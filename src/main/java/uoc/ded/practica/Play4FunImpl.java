@@ -1,7 +1,7 @@
 package uoc.ded.practica;
 
 import uoc.ded.practica.exceptions.*;
-import uoc.ded.practica.models.*;
+import uoc.ded.practica.model.*;
 import uoc.ded.practica.tads.Games;
 import uoc.ded.practica.tads.TopPlayedGames;
 import uoc.ei.tads.*;

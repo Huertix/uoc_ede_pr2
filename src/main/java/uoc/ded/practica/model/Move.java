@@ -1,4 +1,4 @@
-package uoc.ded.practica.models;
+package uoc.ded.practica.model;
 
 public class Move {
 

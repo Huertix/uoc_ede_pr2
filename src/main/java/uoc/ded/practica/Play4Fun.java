@@ -1,9 +1,9 @@
 package uoc.ded.practica;
 
 import uoc.ded.practica.exceptions.*;
-import uoc.ded.practica.models.Game;
-import uoc.ded.practica.models.Move;
-import uoc.ded.practica.models.User;
+import uoc.ded.practica.model.Game;
+import uoc.ded.practica.model.Move;
+import uoc.ded.practica.model.User;
 import uoc.ei.tads.Iterador;
 
 /**
@@ -11,6 +11,12 @@ import uoc.ei.tads.Iterador;
  */
 public interface Play4Fun {
 
+
+    /**
+     * Dimensión estimada del contenedor de juegos
+     *
+     */
+    public static final int G = 1000;
 
     /**
      * dimensión del contenedor de juegos
@@ -51,12 +57,12 @@ public interface Play4Fun {
      * @param description descripción del juego
      *
      * @pre cierto
-     * @post  los juegos son los mismos más uno nuevo con los datos 
-     * indicados. Si ya hay un juego con el nombre especificado 
+     * @post  los juegos son los mismos más uno nuevo con los datos
+     * indicados. Si ya hay un juego con el nombre especificado
      * devolverá un error.
      */
     public void addGame(String idGame, String description)
-            throws DEDException;
+            throws GameAlreadyExistsException;
 
 
     /**
@@ -200,7 +206,131 @@ public interface Play4Fun {
      * @param idUser identificador del usuario
      * @return retorna l'usuari identificcat per idUser o null en caso que no exista
      */
-    public User getUser(String idUser) ;
+    public User getUser(String idUser);
+
+
+
+
+    ////////
+    // PRA
+    ////////
+
+
+
+    /**
+     * Método que añade una partida al sistema
+     *
+     * @pre cierto.
+     * @post las partidas serán las mismas más una nueva para el juego indicado. Si ya existe
+     * la partida o el juego no existe devolverá un error.
+     */
+    public void addMatch(String matchID, String gameID) throws MatchAlreadyExistsException, GameNotFoundException;
+
+    /**
+     * Método que permite añadir un jugador a una partida
+     *
+     * @pre existe un jugador con el identificador userID especificado, no está jugando
+     *      la partida especificada con matchID pero sí está en el Juego (playGame) de la partida
+     * @post los jugadores de la partida especificadas serán los mismos más el jugador
+     *      especificado con el identificador userID. Si no existe la partida devolverá un error.
+     */
+    public void joinMatch(String matchID, String userID) throws MatchNotFoundException;
+
+
+    /**
+     * Método que permite matar un jugador de una partida
+     *
+     @pre la partida especificada con matchID y los jugadores killerID y killedID que se
+     especifican en la llamada existen, no son el mismo jugador y están jugando la partida matchID.
+     @post los jugadores de la partida especificada con matchID serán los mismos
+     menos el jugador especificado con el identificador killedID. El jugador especificado
+     con killerID incrementara sus puntos en la partida con el valor especificado en
+     points. Si solo queda el jugador identificado con killerID en la partida esta termina,
+     se debe actualizar el jugador con mayor puntuación del juego y las partidas serán
+     las mismas menos la partida identificada con matchID.
+     */
+    public void kill(String matchID, String killerID, String killedID, int points);
+
+
+    /**
+     * Método que proporciona el usuario con más puntuación de las partidas de ese juego
+     *
+     * @pre el juego identificado con gameID existe
+     * @post Devuelve el usuario que ha obtenido mayor puntuación en las partidas multijugador
+     * jugadas para este juego junto con su puntuación.
+     */
+    public PlayerScore topUserForGame(String gameID);
+
+
+    /**
+     * Método que genera un mensaje público asociado a una partida
+     *
+     * @pre el jugador userID existe y está jugando la partida matchID.
+     * @post Los mensajes de la partida matchID son los mismo más un nuevo mensaje
+     * con el contenido message enviado por el usuario userID. Si la partida
+     * identificada con matchID no existe devuelve un error.
+     */
+    public void sendPublicMessage(String matchID, String userID, String message, Date date)
+            throws MatchNotFoundException;
+
+
+    /**
+     * Método que genera un mensaje privado entre jugadores de una partida
+     *
+     * @pre los jugadores identificados con senderID y receiverID existen y están jugando la partida matchID.
+     * @post Los mensajes recibidos por el jugador identificados con receiverID
+     * de la partida matchID son los mismos más un nuevo mensaje con el contenido
+     * message enviado por el usuario senderID. Si la partida identificada con matchID
+     * no existe devuelve un error.
+     * */
+    public void sendPrivateMessage(String matchID, String senderID, String receiverID, String message, Date date)
+            throws MatchNotFoundException;
+
+    /**
+     * Método que proporciona los mensajes públicos de una partida
+     * @pre cierto.
+     * @post devuelve un iterador con los mensajes públicos enviados a una partida
+     * ordenados por orden de envío. Si
+     * la partida identificada con matchID no existe devuelve un error.
+     */
+    public Iterador<Message> publicMessages(String matchID) throws MatchNotFoundException;
+
+    /**
+     *  Método que proporciona los mensajes privados recibidos de un jugador
+     *  @pre cierto.
+     *  @post devuelve un iterador los mensajes recibidos por el jugador identificado con
+     *  userID ordenados por orden de envío. Si la partida identificada con matchID o el
+     *  jugador identificado con userID no existe o no está jugando la partida en este
+     *  momento devuelve un error.
+     */
+    public Iterador<Message> privateMessages(String matchID, String userID)
+            throws MatchNotFoundException, UserNotFoundException, UserNotInMatchException;
+
+
+
+    /**
+     * Método que proporciona el número de partidas que hay en el sistema
+     * @return el número de partidas
+     */
+    public int numMatches();
+
+
+    /**
+     * Método que proporciona el número de jugadores de una partida
+     * @param matchID
+     * @return el número de jugadores que se han añadido a una partida, cero en caso
+     * que no exista la partida
+     */
+    public int numUsersByMatch(String matchID);
+
+
+    /**
+     * método que proporciona un usuario de una partida
+     * @param matchId identificador de la partida
+     * @param userId identificador del usuari
+     * @return retorna el usuario de la partida, en caso que no exista retorna null
+     */
+    public PlayerScore getPlayerFromMatch(String matchId, String userId);
 }
 
 

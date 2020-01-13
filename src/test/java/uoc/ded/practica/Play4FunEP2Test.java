@@ -5,10 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import uoc.ded.practica.Play4Fun;
 import uoc.ded.practica.exceptions.*;
-import uoc.ded.practica.models.Game;
-import uoc.ded.practica.models.Move;
+import uoc.ded.practica.model.Game;
+import uoc.ded.practica.model.Move;
 import uoc.ei.tads.Iterador;
 
 public class Play4FunEP2Test {

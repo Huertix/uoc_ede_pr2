@@ -1,8 +1,7 @@
-package uoc.ded.practica.models;
+package uoc.ded.practica.model;
 
 import uoc.ded.practica.exceptions.LevelAlreadyExistsException;
 import uoc.ded.practica.exceptions.LevelNotFoundException;
-import uoc.ei.tads.Contenedor;
 import uoc.ei.tads.Iterador;
 import uoc.ei.tads.Lista;
 import uoc.ei.tads.ListaEncadenada;

@@ -1,6 +1,6 @@
 package uoc.ded.practica.tads;
 
-import uoc.ded.practica.models.Move;
+import uoc.ded.practica.model.Move;
 
 public class TopPlayers extends VectorOrdenado<Move> {
 

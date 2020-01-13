@@ -1,7 +1,7 @@
 package uoc.ded.practica.tads;
 
 import uoc.ei.tads.*;
-import uoc.ded.practica.models.Game;
+import uoc.ded.practica.model.Game;
 
 
 public class TopPlayedGames extends ListaEncadenada<Game> {

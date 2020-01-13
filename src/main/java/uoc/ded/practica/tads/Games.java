@@ -3,7 +3,7 @@ package uoc.ded.practica.tads;
 import uoc.ded.practica.exceptions.DEDException;
 import uoc.ded.practica.exceptions.GameAlreadyExistsException;
 import uoc.ded.practica.exceptions.GameNotFoundException;
-import uoc.ded.practica.models.Game;
+import uoc.ded.practica.model.Game;
 import uoc.ei.tads.ExcepcionContenedorLleno;
 
 public class Games extends VectorOrdenado<Game> {
