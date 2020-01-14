@@ -11,11 +11,7 @@ import java.util.Date;
 public class Play4FunImpl implements Play4Fun {
 
     private Games games;
-
-    // TODO: El número de usuarios U pasa a ser muy grande e ilimitado. DiccionarioAVLImpl​
-    // La mejor opción es un AVL ya que el número de usuarios pasa a ser muy grande e ilimitado. Con la lista, las operaciones
-    // de búsqueda serían lineales y con volúmenes grandes de información no es aceptable.
-    private Lista<User> users;
+    private Diccionario<String, User> users;
     private TopPlayedGames topPlayedGames;
 
     // TODO: El número de partidas multijugador P es grande e ilimitado. Ninguna operación puede ser lineal respecto al número de partidas. DiccionarioAVLImpl​
@@ -32,25 +28,22 @@ public class Play4FunImpl implements Play4Fun {
 
     public Play4FunImpl() {
         this.games = new Games(this.J);
-        this.users = new ListaEncadenada<User>();
+        this.users = new DiccionarioAVLImpl<String, User>();
         this.topPlayedGames = new TopPlayedGames();
     }
 
     @Override
     public void addUser(String idUser, String name, String surname) {
-        final Iterador<User> elementos = this.users.elementos();
-
-        while (elementos.haySiguiente()) {
-            User currentUser = elementos.siguiente();
-            if (currentUser.getId().equals(idUser)) {
-                currentUser.setName(name);
-                currentUser.setSurname(surname);
-                return;
-            }
+        // Update user details if exists
+        User currentUser = this.users.consultar(idUser);
+        if (currentUser != null) {
+            currentUser.setName(name);
+            currentUser.setSurname(surname);
+            return;
         }
 
         User newUser = new User(idUser, name, surname);
-        this.users.insertarAlFinal(newUser);
+        this.users.insertar(idUser, newUser);
     }
 
     @Override
