@@ -10,11 +10,14 @@ import java.util.Objects;
 
 public class Game {
 
+    // TODO: Para guardar el usuario con mayor puntuación de un juego multijugador usaremos un atributo en la clase Game.
+
     private String id;
     private String description;
     private int totalPlayed;
     private Lista<Level> levels;
     private int totalLevels;
+    private PlayerScore maxScoredPlayer = null;
 
     public Game(String id, String description) {
         this.id = id;
@@ -89,6 +92,14 @@ public class Game {
 
     public void reduceTotalLevels() {
         this.totalLevels -= 1;
+    }
+
+    public PlayerScore getMaxScoredPlayer() {
+        return maxScoredPlayer;
+    }
+
+    public void setMaxScoredPlayer(PlayerScore maxScoredPlayer) {
+        this.maxScoredPlayer = maxScoredPlayer;
     }
 
     @Override

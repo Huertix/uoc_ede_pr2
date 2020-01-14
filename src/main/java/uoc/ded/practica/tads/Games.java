@@ -8,9 +8,6 @@ import uoc.ei.tads.ExcepcionContenedorLleno;
 import uoc.ei.tads.TablaDispersion;
 
 public class Games extends TablaDispersion<String, Game> {
-
-    // TODO: Para guardar el usuario con mayor puntuación de un juego multijugador usaremos un atributo en la clase Game.
-
     private int maxElementos;
     private int nElementos = 0;
 
