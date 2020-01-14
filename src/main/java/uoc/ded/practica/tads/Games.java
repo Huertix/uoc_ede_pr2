@@ -6,7 +6,11 @@ import uoc.ded.practica.exceptions.GameNotFoundException;
 import uoc.ded.practica.model.Game;
 import uoc.ei.tads.ExcepcionContenedorLleno;
 
+//TODO: El número de juegos J continúa siendo conocido, pero aumenta mucho.
+// no necesitamos ningún recorrido ordenado elegiremos una ​tabla de dispersión​ para conseguir un acceso de consulta constante.
 public class Games extends VectorOrdenado<Game> {
+
+    // TODO: Para guardar el usuario con mayor puntuación de un juego multijugador usaremos un atributo en la clase Game.
 
     public Games(int max) {
         super();
@@ -61,6 +65,7 @@ public class Games extends VectorOrdenado<Game> {
             throw new GameNotFoundException();
         }
 
+        // Buscar el juego en la tabla de dispersión de juegos => O(1)
         return this.binarySearch(this.elementos, this.nElementos, idGame);
     }
 

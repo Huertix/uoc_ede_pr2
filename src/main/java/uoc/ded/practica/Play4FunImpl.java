@@ -11,8 +11,24 @@ import java.util.Date;
 public class Play4FunImpl implements Play4Fun {
 
     private Games games;
+
+    // TODO: El número de usuarios U pasa a ser muy grande e ilimitado. DiccionarioAVLImpl​
+    // La mejor opción es un AVL ya que el número de usuarios pasa a ser muy grande e ilimitado. Con la lista, las operaciones
+    // de búsqueda serían lineales y con volúmenes grandes de información no es aceptable.
     private Lista<User> users;
     private TopPlayedGames topPlayedGames;
+
+    // TODO: El número de partidas multijugador P es grande e ilimitado. Ninguna operación puede ser lineal respecto al número de partidas. DiccionarioAVLImpl​
+    // Necesitamos, por tanto, un contenedor no acotado que no tenga una eficiencia lineal para las consultas, la única opción posible de las planteadas es un ​AVL.
+
+    // TODO: El número de jugadores en las partidas multijugador JP es muy variable y puede llegar a ser muy grande. DiccionarioAVLImpl​
+    // AVL, ​ya que el número de jugadores se prevé muy grande y en constante aumento y, por las operaciones definidas, necesitamos un acceso por identificador.
+
+    // TODO: El número de mensajes MP que se puede enviar a una partida serà pequeño pero irá en constante aumento.
+    // ​lista encadenada ordenada ya que irán en constante aumento y inicialmente estará vacía. Como necesitamos devolver los mensajes en orden cronológico la lista deberá ser ordenada.
+
+    // TODO: El número de mensajes privados MJ que se puede enviar entre jugadores de una partida serà pequeño pero irá en constante aumento.
+    // lista encadenada ordenada ya que irán en constante aumento y inicialmente estará vacía. Como necesitamos devolver los mensajes en orden cronológico la lista deberá ser ordenada.
 
     public Play4FunImpl() {
         this.games = new Games(this.J);
@@ -168,6 +184,7 @@ public class Play4FunImpl implements Play4Fun {
 
     @Override
     public User getUser(String idUser) {
+        // TODO: Buscar el usuario en el AVL de usuarios => O(log U)
         final Iterador<User> elementos = this.users.elementos();
         while (elementos.haySiguiente()) {
             User currentUser = elementos.siguiente();
@@ -180,42 +197,60 @@ public class Play4FunImpl implements Play4Fun {
 
     @Override
     public void addMatch(String matchID, String gameID) throws MatchAlreadyExistsException, GameNotFoundException {
-
+        // Añadir una nueva partida multijugador. De cada partida sabremos su nombre que lo identificará y el juego.
+        // Si ya existe la partida o el juego no existe devolverá un error.
     }
 
     @Override
     public void joinMatch(String matchID, String userID) throws MatchNotFoundException {
-
+        // Unirse a una partida multijugador. Considerad que el jugador que se especifica en la llamada siempre existe y
+        // no está jugando la partida. Si la partida especificada no existe devolverá un error.
     }
 
     @Override
     public void kill(String matchID, String killerID, String killedID, int points) {
-
+        // Eliminar a un usuario de una partida multijugador: Considerad que la partida existe y los jugadores origen y
+        // destino que se especifican en la llamada existen y están jugando la partida. La llamada especifica el número
+        // de puntos que ganará el jugador. Si en la partida solo queda un jugador esta termina, se elimina de la estructura
+        // de partidas y se actualiza el jugador con mayor puntuación del juego.
     }
 
     @Override
     public PlayerScore topUserForGame(String gameID) {
         return null;
+        // Consultar el usuario con mayor puntuación de un juego multijugador: Devuelve el usuario que ha obtenido mayor
+        // puntuación en las partidas multijugador jugadas para este juego junto con su puntuación. Considerad que el
+        // juego existe y que si no hay ninguna partida finalizada para este juego se devuelve nulo.
     }
 
     @Override
     public void sendPublicMessage(String matchID, String userID, String message, Date date) throws MatchNotFoundException {
-
+        // Enviar un mensaje público a una partida multijugador: Considerad que el jugador que se especifica en la
+        // llamada siempre existe y está jugando la partida. Si la partida especificada no existe devolverá un error.
     }
 
     @Override
     public void sendPrivateMessage(String matchID, String senderID, String receiverID, String message, Date date) throws MatchNotFoundException {
-
+        // Enviar un mensaje privado a un jugador de una partida multijugador: Considerad que el jugador que envía el
+        // mensaje y el que lo recibe siempre existen y están jugando la partida. Si la partida especificada no existe
+        // devolverá un error.
     }
 
     @Override
     public Iterador<Message> publicMessages(String matchID) throws MatchNotFoundException {
         return null;
+
+        // Obtener la cronología de mensajes públicos de una partida multijugador: Devuelve los mensajes públicos enviados
+        // a una partida ordenados por orden de envío. Si la partida no existe devuelve un error.
     }
 
     @Override
     public Iterador<Message> privateMessages(String matchID, String userID) throws MatchNotFoundException, UserNotFoundException, UserNotInMatchException {
         return null;
+
+        // Obtener la cronología de mensajes privados recibidos por un jugador de una partida multijugador: Devuelve los
+        // mensajes recibidos por el jugador ordenados por orden de envío. Si la partida no existe, el jugador no existe
+        // o no está jugando la partida en este momento devuelve un error.
     }
 
     @Override

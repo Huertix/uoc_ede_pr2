@@ -75,6 +75,7 @@ public class Level {
      */
     public Screen getScreen(int levelScreenId) throws ScreenNotFoundException {
         try {
+            // Buscar la pantalla al vector de pantallas del nivel => O (1)
             return screens[levelScreenId];
         } catch (Exception e){
             // Potentially could throw and index of range exception
