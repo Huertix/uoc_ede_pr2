@@ -27,7 +27,7 @@ public class Play4FunImpl implements Play4Fun {
     // lista encadenada ordenada ya que irán en constante aumento y inicialmente estará vacía. Como necesitamos devolver los mensajes en orden cronológico la lista deberá ser ordenada.
 
     public Play4FunImpl() {
-        this.games = new Games(this.J);
+        this.games = new Games(this.G);
         this.users = new DiccionarioAVLImpl<String, User>();
         this.topPlayedGames = new TopPlayedGames();
     }
@@ -49,7 +49,7 @@ public class Play4FunImpl implements Play4Fun {
     @Override
     public void addGame(String idGame, String description) throws GameAlreadyExistsException {
         Game newGame = new Game(idGame, description);
-        this.games.insertSorted(newGame);
+        this.games.insert(idGame, newGame);
     }
 
     @Override

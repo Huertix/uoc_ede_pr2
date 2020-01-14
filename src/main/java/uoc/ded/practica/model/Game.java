@@ -54,7 +54,6 @@ public class Game {
      * @throws LevelNotFoundException
      */
     public Level getLevel(String levelId) throws LevelNotFoundException {
-        // TODO: Buscar el nivel en la lista encadenada de niveles => O (NJ)
         final Iterador<Level> levels = this.levels.elementos();
         while (levels.haySiguiente()) {
             Level currentLevel = levels.siguiente();
