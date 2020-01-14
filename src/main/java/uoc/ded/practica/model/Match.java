@@ -87,4 +87,19 @@ public class Match {
 
         return messagesToUser.elementos();
     }
+
+    public Iterador<Message> getMessagesReceivedByAll() {
+
+        Lista<Message> messagesToAll = new ListaEncadenada<>();
+
+        final Iterador<Message> elementos = matchMessages.elementos();
+
+        while (elementos.haySiguiente()) {
+            Message msg = elementos.siguiente();
+            if (msg.getReceiver() == null)
+                messagesToAll.insertarAlFinal(msg);
+        }
+
+        return messagesToAll.elementos();
+    }
 }

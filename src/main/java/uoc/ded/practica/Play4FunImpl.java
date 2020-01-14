@@ -262,6 +262,15 @@ public class Play4FunImpl implements Play4Fun {
     public void sendPublicMessage(String matchID, String userID, String message, Date date) throws MatchNotFoundException {
         // Enviar un mensaje público a una partida multijugador: Considerad que el jugador que se especifica en la
         // llamada siempre existe y está jugando la partida. Si la partida especificada no existe devolverá un error.
+
+        Match match = this.multiPlayerGames.consultar(matchID);
+        if (match == null)
+            throw new MatchNotFoundException();
+
+        User sender = this.getUser(userID);
+
+        if (sender != null)
+            match.sendMessageToAll(message, sender, date);
     }
 
     @Override
@@ -271,7 +280,6 @@ public class Play4FunImpl implements Play4Fun {
         // devolverá un error.
 
         Match match = this.multiPlayerGames.consultar(matchID);
-
         if (match == null)
             throw new MatchNotFoundException();
 
@@ -284,10 +292,15 @@ public class Play4FunImpl implements Play4Fun {
 
     @Override
     public Iterador<Message> publicMessages(String matchID) throws MatchNotFoundException {
-        return null;
 
         // Obtener la cronología de mensajes públicos de una partida multijugador: Devuelve los mensajes públicos enviados
         // a una partida ordenados por orden de envío. Si la partida no existe devuelve un error.
+
+        Match match = this.multiPlayerGames.consultar(matchID);
+        if (match == null)
+            throw new MatchNotFoundException();
+
+        return match.getMessagesReceivedByAll();
     }
 
     @Override
