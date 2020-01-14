@@ -269,6 +269,17 @@ public class Play4FunImpl implements Play4Fun {
         // Enviar un mensaje privado a un jugador de una partida multijugador: Considerad que el jugador que envía el
         // mensaje y el que lo recibe siempre existen y están jugando la partida. Si la partida especificada no existe
         // devolverá un error.
+
+        Match match = this.multiPlayerGames.consultar(matchID);
+
+        if (match == null)
+            throw new MatchNotFoundException();
+
+        User sender = this.getUser(senderID);
+        User receiver = this.getUser(receiverID);
+
+        if (sender != null && receiver != null)
+            match.sendMessageToUser(message, sender, receiver, date);
     }
 
     @Override
@@ -281,11 +292,23 @@ public class Play4FunImpl implements Play4Fun {
 
     @Override
     public Iterador<Message> privateMessages(String matchID, String userID) throws MatchNotFoundException, UserNotFoundException, UserNotInMatchException {
-        return null;
 
         // Obtener la cronología de mensajes privados recibidos por un jugador de una partida multijugador: Devuelve los
         // mensajes recibidos por el jugador ordenados por orden de envío. Si la partida no existe, el jugador no existe
         // o no está jugando la partida en este momento devuelve un error.
+
+        if (this.getUser(userID) == null)
+            throw new UserNotFoundException();
+
+        Match match = this.multiPlayerGames.consultar(matchID);
+        if (match == null)
+            throw new MatchNotFoundException();
+
+        PlayerScore playerScore = match.getPlayer(userID);
+        if (playerScore == null)
+            throw new UserNotInMatchException();
+
+        return match.getMessagesReceivedByUser(userID);
     }
 
     @Override

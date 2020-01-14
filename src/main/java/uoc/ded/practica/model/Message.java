@@ -7,28 +7,31 @@ public class Message {
 
     private Date date;
     private User sender;
+    private User receiver = null;
     private String message;
 
-    public Message(String message, User sender) {
+    public Message(String message, User sender, Date date) {
         this.message = message;
         this.sender = sender;
+        this.date = date;
+    }
+
+    public Message(String message, User sender, User receiver, Date date) {
+        this.message = message;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.date = date;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public User getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
+    public User getReceiver() { return receiver; }
 
     public String getMessage() {
         return message;
