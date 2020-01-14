@@ -21,7 +21,7 @@ public class Games extends VectorOrdenado<Game> {
      * @param newGame Game game to insert
      * @throws DEDException
      */
-    public void insertSorted(Game newGame) throws DEDException {
+    public void insertSorted(Game newGame) throws GameAlreadyExistsException {
 
         if (this.estaLleno())
             throw new ExcepcionContenedorLleno();

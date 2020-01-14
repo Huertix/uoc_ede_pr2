@@ -6,6 +6,8 @@ import uoc.ded.practica.tads.Games;
 import uoc.ded.practica.tads.TopPlayedGames;
 import uoc.ei.tads.*;
 
+import java.util.Date;
+
 public class Play4FunImpl implements Play4Fun {
 
     private Games games;
@@ -36,7 +38,7 @@ public class Play4FunImpl implements Play4Fun {
     }
 
     @Override
-    public void addGame(String idGame, String description) throws DEDException {
+    public void addGame(String idGame, String description) throws GameAlreadyExistsException {
         Game newGame = new Game(idGame, description);
         this.games.insertSorted(newGame);
     }
@@ -173,6 +175,61 @@ public class Play4FunImpl implements Play4Fun {
                 return currentUser;
             }
         }
+        return null;
+    }
+
+    @Override
+    public void addMatch(String matchID, String gameID) throws MatchAlreadyExistsException, GameNotFoundException {
+
+    }
+
+    @Override
+    public void joinMatch(String matchID, String userID) throws MatchNotFoundException {
+
+    }
+
+    @Override
+    public void kill(String matchID, String killerID, String killedID, int points) {
+
+    }
+
+    @Override
+    public PlayerScore topUserForGame(String gameID) {
+        return null;
+    }
+
+    @Override
+    public void sendPublicMessage(String matchID, String userID, String message, Date date) throws MatchNotFoundException {
+
+    }
+
+    @Override
+    public void sendPrivateMessage(String matchID, String senderID, String receiverID, String message, Date date) throws MatchNotFoundException {
+
+    }
+
+    @Override
+    public Iterador<Message> publicMessages(String matchID) throws MatchNotFoundException {
+        return null;
+    }
+
+    @Override
+    public Iterador<Message> privateMessages(String matchID, String userID) throws MatchNotFoundException, UserNotFoundException, UserNotInMatchException {
+        return null;
+    }
+
+    @Override
+    public int numMatches() {
+        return 0;
+    }
+
+    @Override
+    public int numUsersByMatch(String matchID) {
+        return 0;
+    }
+
+    @Override
+    public PlayerScore getPlayerFromMatch(String matchId, String userId) {
         return null;
     }
 }
