@@ -170,11 +170,17 @@ public class Play4FunImpl implements Play4Fun {
         return this.users.consultar(idUser);
     }
 
+    /**
+     * Añadir una nueva partida multijugador. De cada partida sabremos su nombre que lo identificará y el juego.
+     * @param matchID
+     * @param gameID
+     *
+     * Si ya existe la partida o el juego no existe devolverá un error.
+     * @throws MatchAlreadyExistsException
+     * @throws GameNotFoundException
+     */
     @Override
     public void addMatch(String matchID, String gameID) throws MatchAlreadyExistsException, GameNotFoundException {
-        // Añadir una nueva partida multijugador. De cada partida sabremos su nombre que lo identificará y el juego.
-        // Si ya existe la partida o el juego no existe devolverá un error.
-
         if (this.multiPlayerGames.esta(matchID))
             throw new MatchAlreadyExistsException();
 
@@ -186,16 +192,23 @@ public class Play4FunImpl implements Play4Fun {
         this.multiPlayerGames.insertar(matchID, new Match(matchID, game));
     }
 
+    /**
+     * Unirse a una partida multijugador.
+     *
+     * @param matchID
+     * @param userID
+     *
+     * Si la partida especificada no existe devolverá un error.
+     * @throws MatchNotFoundException
+     */
     @Override
     public void joinMatch(String matchID, String userID) throws MatchNotFoundException {
-        // Unirse a una partida multijugador. Considerad que el jugador que se especifica en la llamada siempre existe y
-        // no está jugando la partida. Si la partida especificada no existe devolverá un error.
-
         if (this.multiPlayerGames.esta(matchID) == false)
             throw new MatchNotFoundException();
 
         Match match = this.multiPlayerGames.consultar(matchID);
 
+        // check if user exists and if he is playing in the match
         if (this.users.esta(userID) && match.isUserInMatch(userID) == false) {
             User user = this.getUser(userID);
             match.userJoinMatch(user);
@@ -205,10 +218,16 @@ public class Play4FunImpl implements Play4Fun {
 
     }
 
+    /**
+     * Eliminar a un usuario de una partida multijugador
+     *
+     * @param matchID
+     * @param killerID
+     * @param killedID
+     * @param points
+     */
     @Override
     public void kill(String matchID, String killerID, String killedID, int points) {
-        // Eliminar a un usuario de una partida multijugador:
-        //
         // Considerad que la partida existe
         Match match = this.multiPlayerGames.consultar(matchID);
 
@@ -258,44 +277,65 @@ public class Play4FunImpl implements Play4Fun {
         return this.games.consultar(gameID).getMaxScoredPlayer();
     }
 
+    /**
+     * Enviar un mensaje público a una partida multijugador
+     *
+     * @param matchID
+     * @param userID
+     * @param message
+     * @param date
+     *
+     * Si la partida especificada no existe devolverá un error
+     * @throws MatchNotFoundException
+     */
     @Override
     public void sendPublicMessage(String matchID, String userID, String message, Date date) throws MatchNotFoundException {
-        // Enviar un mensaje público a una partida multijugador: Considerad que el jugador que se especifica en la
-        // llamada siempre existe y está jugando la partida. Si la partida especificada no existe devolverá un error.
-
         Match match = this.multiPlayerGames.consultar(matchID);
         if (match == null)
             throw new MatchNotFoundException();
 
-        User sender = this.getUser(userID);
+        User sender = match.getPlayer(userID).getUser();
 
         if (sender != null)
             match.sendMessageToAll(message, sender, date);
     }
 
+    /**
+     * Enviar un mensaje privado a un jugador de una partida multijugador
+     *
+     * @param matchID
+     * @param senderID
+     * @param receiverID
+     * @param message
+     * @param date
+     *
+     * Si la partida especificada no existe devolverá un error.
+     * @throws MatchNotFoundException
+     */
     @Override
     public void sendPrivateMessage(String matchID, String senderID, String receiverID, String message, Date date) throws MatchNotFoundException {
-        // Enviar un mensaje privado a un jugador de una partida multijugador: Considerad que el jugador que envía el
-        // mensaje y el que lo recibe siempre existen y están jugando la partida. Si la partida especificada no existe
-        // devolverá un error.
-
         Match match = this.multiPlayerGames.consultar(matchID);
         if (match == null)
             throw new MatchNotFoundException();
 
-        User sender = this.getUser(senderID);
-        User receiver = this.getUser(receiverID);
+        User sender = match.getPlayer(senderID).getUser();
+        User receiver = match.getPlayer(receiverID).getUser();
 
         if (sender != null && receiver != null)
             match.sendMessageToUser(message, sender, receiver, date);
     }
 
+    /**
+     * Obtener la cronología de mensajes públicos de una partida multijugador.
+     *
+     * @param matchID
+     * @return Iterator<Message> Devuelve los mensajes públicos enviados a una partida ordenados por orden de envío.
+     *
+     * Si la partida no existe devuelve un error.
+     * @throws MatchNotFoundException
+     */
     @Override
     public Iterador<Message> publicMessages(String matchID) throws MatchNotFoundException {
-
-        // Obtener la cronología de mensajes públicos de una partida multijugador: Devuelve los mensajes públicos enviados
-        // a una partida ordenados por orden de envío. Si la partida no existe devuelve un error.
-
         Match match = this.multiPlayerGames.consultar(matchID);
         if (match == null)
             throw new MatchNotFoundException();
@@ -303,13 +343,20 @@ public class Play4FunImpl implements Play4Fun {
         return match.getMessagesReceivedByAll();
     }
 
+    /**
+     * Obtener la cronología de mensajes privados recibidos por un jugador de una partida multijugador.
+     *
+     * @param matchID
+     * @param userID
+     * @return Devuelve los mensajes recibidos por el jugador ordenados por orden de envío
+     *
+     * Si la partida no existe, el jugador no existe o no está jugando la partida en este momento devuelve un error.
+     * @throws MatchNotFoundException
+     * @throws UserNotFoundException
+     * @throws UserNotInMatchException
+     */
     @Override
     public Iterador<Message> privateMessages(String matchID, String userID) throws MatchNotFoundException, UserNotFoundException, UserNotInMatchException {
-
-        // Obtener la cronología de mensajes privados recibidos por un jugador de una partida multijugador: Devuelve los
-        // mensajes recibidos por el jugador ordenados por orden de envío. Si la partida no existe, el jugador no existe
-        // o no está jugando la partida en este momento devuelve un error.
-
         if (this.getUser(userID) == null)
             throw new UserNotFoundException();
 
@@ -332,9 +379,9 @@ public class Play4FunImpl implements Play4Fun {
     @Override
     public int numUsersByMatch(String matchID) {
         Match match = this.multiPlayerGames.consultar(matchID);
-
         if (match == null)
             return 0;
+
         return match.getTotalUsersInMatch();
     }
 

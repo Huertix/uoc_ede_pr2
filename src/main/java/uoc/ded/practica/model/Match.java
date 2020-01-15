@@ -10,17 +10,8 @@ public class Match {
     private String matchId;
     private Game game;
     private int totalUsersInMatch = 0;
-
     private Diccionario<String, PlayerScore> usersInMatch;
-
-    private MatchMessages matchMessages;
-
-
-    // TODO: El número de mensajes MP que se puede enviar a una partida serà pequeño pero irá en constante aumento.
-    // ​lista encadenada ordenada ya que irán en constante aumento y inicialmente estará vacía. Como necesitamos devolver los mensajes en orden cronológico la lista deberá ser ordenada.
-
-    // TODO: El número de mensajes privados MJ que se puede enviar entre jugadores de una partida serà pequeño pero irá en constante aumento.
-    // lista encadenada ordenada ya que irán en constante aumento y inicialmente estará vacía. Como necesitamos devolver los mensajes en orden cronológico la lista deberá ser ordenada.
+    private MatchMessages matchMessages; // Contains public messages and private messages
 
     public Match(String matchId, Game game) {
         this.matchId = matchId;
