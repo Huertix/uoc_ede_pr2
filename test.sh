@@ -17,10 +17,8 @@ mkdir -p class/main/java
 mkdir -p class/test/java
 
 cd $BASE/src/main/java
-javac $OPTS -classpath $LIBS -d $BASE/class/main/java uoc/ded/practica/exceptions/*.java
-javac $OPTS -classpath $LIBS -d $BASE/class/main/java uoc/ded/practica/models/*.java
-javac $OPTS -classpath $LIBS -d $BASE/class/main/java uoc/ded/practica/tads/*.java
 javac $OPTS -classpath $LIBS -d $BASE/class/main/java uoc/ded/practica/*.java
+javac $OPTS -classpath $LIBS -d $BASE/class/main/java uoc/ded/practica/util/*.java
 
 cd $BASE/src/test/java
 javac $OPTS -classpath $LIBS -d $BASE/class/test/java uoc/ded/practica/*.java

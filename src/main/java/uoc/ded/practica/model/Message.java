@@ -46,6 +46,7 @@ public class Message {
         return "Message{" +
                 "date=" + date +
                 ", sender=" + sender +
+                ", receiver=" + receiver +
                 ", message='" + message + '\'' +
                 '}';
     }

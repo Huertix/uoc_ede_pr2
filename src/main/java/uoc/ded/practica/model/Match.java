@@ -4,6 +4,7 @@ import uoc.ded.practica.tads.MatchMessages;
 import uoc.ei.tads.*;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Match {
 
@@ -92,5 +93,27 @@ public class Match {
         }
 
         return messagesToAll.elementos();
+    }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "matchId='" + matchId + '\'' +
+                ", game=" + game +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return Objects.equals(matchId, match.matchId) &&
+                Objects.equals(game, match.game);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matchId, game);
     }
 }
