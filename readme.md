@@ -15,9 +15,9 @@ No obstante, alli donde el código puede tener cierta complejida, se pueden enco
 - La llamada a algunos métodos desde la clase **Play4FunImpl** puede generar excepciones que, por definición del contrato con su interface, no deben propagarse. Dichas excepciones
 han sido capturadas con bloques try-catch, pero por el momento no se hace ningún tipo de gestión o logging.
 
-- Este ejercicio se puede encontrar almacenado en el siguiente [repositorio](https://github.com/Huertix/uoc_ede_pr2)
+- Este ejercicio se puede encontrar almacenado en el siguiente [repositorio](https://github.com/Huertix/uoc_ede_pr2).
 
-- 
+- Una comparación de los cambios en el código entre las versiones EP2-Práctica se puede encontrar en el siguiente [link](https://github.com/Huertix/uoc_ede_pr2/compare/EP2...master?expand=1).
 
 
 ####Estructura del proyecto:

@@ -9,9 +9,6 @@ import uoc.ei.tads.ListaEncadenada;
 import java.util.Objects;
 
 public class Game {
-
-    // TODO: Para guardar el usuario con mayor puntuación de un juego multijugador usaremos un atributo en la clase Game.
-
     private String id;
     private String description;
     private int totalPlayed;
