@@ -1,9 +1,13 @@
 # 2019-1 - DED - PRÁCTICA
-### Implementador: David Huerta
+## Implementador: David Huerta
 
 
 
-#### Notas de aclaración:
+### Notas de aclaración:
+
+- Una vez importado el projecto correctamente en el IDE deseado, marca la carpeta $BASE/src/main/java como source, y la carpeta $BASE/src/test/java como test.
+
+- Las librerías indicadas en el arbol de ficheros, el cual se puede encontar bajo estas lineas, han de ser importadas como librerías en el proyecto.
 
 - El código no está fuertemente comentado, pues se ha seguido la estrategia de nombrar a las funciones y a los atributos de tal forma que expresen con claridad sus responsabilidades.
 No obstante, alli donde el código puede tener cierta complejida, se pueden encontrar comentarios que ayudan a su comprensión.
@@ -82,9 +86,9 @@ han sido capturadas con bloques try-catch, pero por el momento no se hace ningú
 ~~~
 
 
-#### Estructura de las clases:
+### Estructura de las clases:
 
-##### La clase **Play4FunImpl**, contiene directamente las siguiente estructuras relevantes:
+#### La clase **Play4FunImpl**, contiene directamente las siguiente estructuras relevantes:
 
 - **Games**: Es una tabla de dispersión, la cual implementa Diccionario. En ella se almacena los juegos. La busqueda de un juego tiene un coste constante.
  
@@ -94,7 +98,7 @@ han sido capturadas con bloques try-catch, pero por el momento no se hace ningú
 
 - **TopPlayedGames**: Es una lista encadena ordenada. Se almacenan los juegos de mayor a menor en función del número de partidas jugadas.
 
-##### La clase **Match**, contiene directamente las siguiente estructuras:
+#### La clase **Match**, contiene directamente las siguiente estructuras:
 
 - **usersInMatch**: Es una arbol AVL. Se almacena la lista de usuarios que juegan una partida multijugador. Costes logarítmicos para las consultas.
 
@@ -102,21 +106,21 @@ han sido capturadas con bloques try-catch, pero por el momento no se hace ningú
 teniendo en cuenta la fecha de envio.
 
 
-##### La clase **Game**, contiene directamente las siguiente estructuras:
+#### La clase **Game**, contiene directamente las siguiente estructuras:
 
 - **Levels**: Es una lista encadena. Se almacena los niveles de un juego. La busqueda de un nivel se realiza con la ayuda de un iterador.
 
-##### La clase **Level**, contiene directamente las siguiente estructuras:
+#### La clase **Level**, contiene directamente las siguiente estructuras:
 
 - **Screens**: Es una vector acotado. Contiene las pantallas de un nivel. La inserción, busqueda y actulización se realiza por la ayuda del identificador de la pantalla, que sirve como indice en el vector.
 
-##### La clase **Screen**, contiene directamente las siguiente estructuras:
+#### La clase **Screen**, contiene directamente las siguiente estructuras:
 
 - **TopPlayers**:  Esta clase extiende de la clase VectorOrdenado, la cual implementa ContenedorAcotado. En ella se almacena los 10 usuarios con mejor puntuación obtenida en dicha pantalla, ordenados por puntos
 obtenidos de mayor a menor. Hace uso de la clase **Move** la cual ayuda a la gestión de usurios que juegan una pantalla.
 
 
-#### UnitTest:
+### UnitTest:
 ~~~
 $ java -cp \
 > ./out/test/2019-1-EP2PRA2019OtonnoEnunciado:\
@@ -134,7 +138,7 @@ OK (22 tests)
 
 ~~~
 
-#### UnitTest from test.sh:
+### UnitTest from test.sh:
 ~~~
 $ ./test.sh 
 
