@@ -246,7 +246,16 @@ public class Play4FunImpl implements Play4Fun {
         // Si en la partida solo queda un jugador esta termina, se elimina de la estructura de partidas
         if (match.getTotalUsersInMatch() < 2) {
             // y se actualiza el jugador con mayor puntuación del juego.
-            match.getGame().setMaxScoredPlayer(player);
+
+            // Check if points are greater than max scored player points in the game
+            PlayerScore maxScoredPlayer = match.getGame().getMaxScoredPlayer();
+
+            if (maxScoredPlayer == null)
+                match.getGame().setMaxScoredPlayer(player);
+
+            else if (maxScoredPlayer != null && player.getPoints() > maxScoredPlayer.getPoints())
+                match.getGame().setMaxScoredPlayer(player);
+
             this.multiPlayerGames.borrar(matchID);
         }
     }
